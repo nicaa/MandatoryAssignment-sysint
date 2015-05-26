@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://xml.netbeans.org/schema/ProductOrder"
+            xmlns:PO="http://xml.netbeans.org/schema/ProductOrder"
+    xmlns:tns="http://xml.netbeans.org/schema/ProductOrder"
+    elementFormDefault="qualified">
+
+    <xsd:element name="PurchaseOrder" type="PO:PurchaseOrderType"/>
+    
+    <xsd:complexType name="PurchaseOrderType">
+        <xsd:sequence>
+            <xsd:element name="ShippingInformation" type="PO:Customer"/>
+            <xsd:element name="Order" type="PO:OrderType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="Customer">
+        <xsd:complexContent>
+            <xsd:extension base="PO:Address">
+                <xsd:sequence>
+                    <xsd:element name="FirstName" type="xsd:string"/>
+                    <xsd:element name="LastName" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="Address">
+        <xsd:sequence>
+            <xsd:element name="Street" type="xsd:string"/>
+            <xsd:element name="PostalCode" type="xsd:string"/>
+            <xsd:element name="City" type="xsd:string"/>
+            <xsd:element name="Country" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="OrderType">
+        <xsd:sequence>
+            <xsd:element name="Item" type="PO:OrderItem" maxOccurs="unbounded"/>
+            <xsd:element name="TotalPrice">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer">
+                        <xsd:minInclusive value="100"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="OrderItem">
+        <xsd:sequence>
+            <xsd:element name="Product" type="xsd:string"/>
+            <xsd:element name="Price" type="xsd:integer"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+</xsd:schema>
