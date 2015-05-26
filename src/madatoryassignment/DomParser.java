@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -24,9 +25,9 @@ import org.xml.sax.SAXException;
  * @author Nichlas
  */
 public class DomParser {
-    public DomParser(){
+    public DomParser(String file , JTextArea textArea){
     try {
-            File myxmlfile = new File("fruitTest.xml");
+            File myxmlfile = new File(file);
             // File myfile = new File("drivers.xml");
 
             // Use DocumentBuilderFactory instance to create a DocumentBuilder instance - it will be the DOM parser
@@ -39,10 +40,10 @@ public class DomParser {
             // Now the document is ready for traversing
             // Start with getDocumentElement() that returns the root element
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
+            textArea.append("Root element :" + doc.getDocumentElement().getNodeName());
             // Accessing the child elements, if any
             if (doc.hasChildNodes()) {
-                printNode(doc.getChildNodes());
+                printNode(doc.getChildNodes(), textArea);
             }
 
         } catch (Exception e) {
@@ -50,7 +51,7 @@ public class DomParser {
         }
     }
 
-    private static void printNode(NodeList nodeList) {
+    private static void printNode(NodeList nodeList, JTextArea textArea) {
     // a loop: one iteration per node
         // most methods come from org.w3c.dom package (see http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/package-summary.html)
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -58,9 +59,13 @@ public class DomParser {
             if (mynode.getNodeType() == Node.ELEMENT_NODE) {
                 // get the new node
                 System.out.print("\n");
+                textArea.append("\n");
                 System.out.println("Node " + mynode.getNodeName() + " opened");
+                textArea.append("Node " + mynode.getNodeName() + " opened");
                 System.out.print("Node " + mynode.getNodeName() + " value:");
+                textArea.append("Node " + mynode.getNodeName() + " value:");
                 System.out.println(" { " + mynode.getTextContent() + " }");
+                textArea.append(" { " + mynode.getTextContent() + " }");
 
                 // Accessing the attributes of an element, if any
                 if (mynode.hasAttributes()) {
@@ -70,14 +75,17 @@ public class DomParser {
                     for (int j = 0; j < nodeMap.getLength(); j++) {
                         Node attnode = nodeMap.item(j);
                         System.out.print("Node " + mynode.getNodeName() + " attributes: ");
+                        textArea.append("Node " + mynode.getNodeName() + " attributes: ");
                         System.out.print(" [attr name = " + attnode.getNodeName());
+                        textArea.append(" [attr name = " + attnode.getNodeName());
                         System.out.print(", attr value = " + attnode.getNodeValue() + "]\n");
+                        textArea.append(", attr value = " + attnode.getNodeValue() + "]\n");
                     }
                 }
 
                 if (mynode.hasChildNodes()) {
                     // Recursion: same procedure for the new children
-                    printNode(mynode.getChildNodes());
+                    printNode(mynode.getChildNodes(), textArea);
                 }
                 System.out.println("Node " + mynode.getNodeName() + " closed");
             }
