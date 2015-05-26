@@ -148,7 +148,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_search_btnActionPerformed
 
     private void loadSaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadSaxActionPerformed
-        textArea.append("Kunt");
+        
     }//GEN-LAST:event_loadSaxActionPerformed
 
     private void loadDOMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadDOMActionPerformed
