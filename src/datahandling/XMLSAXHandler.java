@@ -41,9 +41,14 @@ public class XMLSAXHandler extends DefaultHandler {
     boolean bTotalPrice = false;
 
     private List<OrderItem> orderItemsList = null;
+    private List<PurchaseOrder> purchaseOrderList;
 
     public List<OrderItem> getOrderItemsList() {
         return purchaseOrder.getOrder().getOrderItems();
+    }
+    
+    public List<PurchaseOrder> getPurchaseOrderList() {
+        return purchaseOrderList;
     }
 
     public PurchaseOrder getPurchaseOrder() {
@@ -58,6 +63,9 @@ public class XMLSAXHandler extends DefaultHandler {
             // initialize list
             if (orderItemsList == null) {
                 orderItemsList = new ArrayList<>();
+            }
+            if(purchaseOrderList == null) {
+                purchaseOrderList = new ArrayList<>();
             }
         }
         if (nodeName.equalsIgnoreCase("ns1:Item")) {
@@ -129,6 +137,25 @@ public class XMLSAXHandler extends DefaultHandler {
             //add Employee object to list
             purchaseOrder.getOrder().getOrderItems().add(orderItem);
         }
+        if (nodeName.equalsIgnoreCase("ns1:PurchaseOrder")) {
+            purchaseOrderList.add(purchaseOrder);
+        }/*
+         if (nodeName.equalsIgnoreCase("ShippingInformation"))
+         {
+         purchaseOrder.setShippingInformation(shippingInformation);
+         }
+         if (nodeName.equalsIgnoreCase("Order"))
+         {
+         purchaseOrder.setOrder(order);
+         }
+         if (nodeName.equalsIgnoreCase("Customer"))
+         {
+         shippingInformation.setCustomer(customer);
+         }
+         if (nodeName.equalsIgnoreCase("Address"))
+         {
+         customer.setAddress(address);
+         }*/
 
     }
 }

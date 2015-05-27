@@ -3,13 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package madatoryassignment;
+package mandatoryassignment;
+
+import datahandling.XMLSAXHandler;
+import datamodels.PurchaseOrder;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.SAXException;
 
 /**
  *
  * @author Nichlas
  */
 public class GUI extends javax.swing.JFrame {
+    XMLSAXHandler handler;
 
     /**
      * Creates new form GUI
@@ -117,12 +128,13 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(loadSax)
-                    .addComponent(loadDOM)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(search_btn)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(loadSax)
+                        .addComponent(loadDOM)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                 .addContainerGap())
@@ -140,7 +152,28 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_search_btnActionPerformed
 
     private void loadSaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadSaxActionPerformed
-        
+                SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        try 
+        {
+            SAXParser saxParser = saxParserFactory.newSAXParser();
+            XMLSAXHandler handler = new XMLSAXHandler();
+            
+            File myfile = new File("src/XML/productOrder.xml");
+            saxParser.parse(myfile, handler);
+            
+            //Get Employees list
+            List<PurchaseOrder> purchaseOrders = handler.getPurchaseOrderList();
+            
+            //print employee information
+            for(int i = 0; i < purchaseOrders.size(); i++) {
+                textArea.append(purchaseOrders.get(i).toString());
+            }
+                
+        }
+        catch (ParserConfigurationException | SAXException | IOException e) 
+        {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_loadSaxActionPerformed
 
     private void loadDOMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadDOMActionPerformed

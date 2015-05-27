@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package madatoryassignment;
+package mandatoryassignment;
 
 import java.io.File;
 import javax.swing.JTextArea;
