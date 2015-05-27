@@ -166,7 +166,7 @@ public class GUI extends javax.swing.JFrame {
             
             //print employee information
             for(int i = 0; i < purchaseOrders.size(); i++) {
-                textArea.append(purchaseOrders.get(i).toString());
+                textArea.setText(purchaseOrders.get(i).toString());
             }
                 
         }
