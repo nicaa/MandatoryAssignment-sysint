@@ -25,7 +25,7 @@ import org.xml.sax.SAXException;
  */
 public class XpathSearch {
     
-    public XpathSearch (JTextArea textArea, String Querry) throws SAXException, IOException, XPathExpressionException, ParserConfigurationException{
+    public void getShippingInformationByCountry (JTextArea textArea, String Querry) throws SAXException, IOException, XPathExpressionException, ParserConfigurationException{
        
             File myxmlfile = new File("productOrder.xml");
             textArea.setText("");
@@ -64,4 +64,97 @@ public class XpathSearch {
             //System.out.printf("Number of Managers:%2.0f\n", number);
         
     }
+    
+    public String getChildElements(String elementName) throws XPathExpressionException, SAXException, ParserConfigurationException, IOException {
+        File xmlFile = new File("productOrder.xml");
+        StringBuilder stringBuilder = new StringBuilder();
+        
+        String xPathQuery = "//"+ elementName +"/*//text()";
+        
+        DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = builderFactory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            
+            XPathFactory xFactory = XPathFactory.newInstance();
+            XPath xpath = xFactory.newXPath();
+            XPathExpression expr1, expr2;
+            
+            expr1 = (XPathExpression) xpath.compile(xPathQuery);
+            
+            Object result = expr1.evaluate(doc, XPathConstants.NODESET);
+            
+            NodeList results = (NodeList) result;
+            
+            int count = 0;
+            
+            for (int i=0; i<results.getLength(); i++)
+            {
+                stringBuilder.append(results.item(i).getNodeValue() + "\n");
+                count++;
+            }
+            
+            stringBuilder.append("\n Found " + count + " elements");
+            return stringBuilder.toString();        
+    }
+    
+        public String getElement(String elementName) throws XPathExpressionException, SAXException, ParserConfigurationException, IOException {
+        File xmlFile = new File("productOrder.xml");
+        StringBuilder stringBuilder = new StringBuilder();
+        
+        String xPathQuery = "//"+ elementName +"/text()";
+        
+        DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = builderFactory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            
+            XPathFactory xFactory = XPathFactory.newInstance();
+            XPath xpath = xFactory.newXPath();
+            XPathExpression expr1, expr2;
+            
+            expr1 = (XPathExpression) xpath.compile(xPathQuery);
+            
+            Object result = expr1.evaluate(doc, XPathConstants.NODESET);
+            
+            NodeList results = (NodeList) result;
+            
+            int count = 0;
+            
+            for (int i=0; i<results.getLength(); i++)
+            {
+                stringBuilder.append(results.item(i).getNodeValue() + "\n");
+                count++;
+            }
+            
+            stringBuilder.append("\n Found " + count + " occurences of element " + elementName);
+            return stringBuilder.toString();        
+    }
+    
+        public String getCustomQuery(String customQuery) throws XPathExpressionException, SAXException, ParserConfigurationException, IOException {
+        File xmlFile = new File("productOrder.xml");
+        StringBuilder stringBuilder = new StringBuilder();
+        
+        String xPathQuery = customQuery;
+        
+        DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = builderFactory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            
+            XPathFactory xFactory = XPathFactory.newInstance();
+            XPath xpath = xFactory.newXPath();
+            XPathExpression expr1, expr2;
+            
+            expr1 = (XPathExpression) xpath.compile(xPathQuery);
+            
+            Object result = expr1.evaluate(doc, XPathConstants.NODESET);
+            
+            NodeList results = (NodeList) result;
+            for (int i=0; i<results.getLength(); i++)
+            {
+                stringBuilder.append(results.item(i).getNodeValue() + "\n");
+            }
+            
+            return stringBuilder.toString();        
+    }
+    
+    
 }

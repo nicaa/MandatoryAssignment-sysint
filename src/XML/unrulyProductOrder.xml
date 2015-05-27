@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<PurchaseOrder
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='ProductOrder.xsd'>
+    <ShippingInformation>
+        <Street>John Doe Street</Street>
+        <PostalCode>5555</PostalCode>
+        <City>John Doe City</City>
+        <Country>JD Country</Country>
+        <FirstName>John</FirstName>
+        <LastName>Doe</LastName>
+    </ShippingInformation>
+    <Order>
+        <Item>
+            <Product>Banana</Product>
+            <Price>10</Price>
+        </Item>
+        <Item>
+            <Product>Apple</Product>
+            <Price>15</Price>
+        </Item>
+        <Item>
+            <Product>Pear</Product>
+            <Price>100</Price>
+        </Item>
+        <TotalPrice>100</TotalPrice>
+    </Order>
+
+</PurchaseOrder>

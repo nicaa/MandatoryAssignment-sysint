@@ -36,7 +36,7 @@ public class PurchaseOrder {
     
     @Override
     public String toString(){
-        return "Buyer: \n " + shippingInformation.toString() + "Purchase order: \n " + order.toString();
+        return "Buyer: " + shippingInformation.toString() + "\n\n Purchase order: " + order.toString();
     }
     
 }

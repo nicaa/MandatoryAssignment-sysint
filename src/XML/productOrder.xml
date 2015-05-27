@@ -9,7 +9,8 @@ and open the template in the editor.
 <ns1:PurchaseOrder
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xmlns:ns1='http://xml.netbeans.org/schema/ProductOrder'
-    xsi:schemaLocation='http://xml.netbeans.org/schema/ProductOrder ProductOrder.xsd'>
+    xsi:schemaLocation='http://xml.netbeans.org/schema/ProductOrder ProductOrder.xsd'
+    xmlns='http://xml.netbeans.org/schema/ProductOrder'>
     <ns1:ShippingInformation>
         <ns1:Street>Stairway</ns1:Street>
         <ns1:PostalCode>2400</ns1:PostalCode>
@@ -26,6 +27,10 @@ and open the template in the editor.
         <ns1:Item>
             <ns1:Product>Banana</ns1:Product>
             <ns1:Price>50</ns1:Price>
+        </ns1:Item>
+        <ns1:Item>
+            <ns1:Product>Orange</ns1:Product>
+            <ns1:Price>75</ns1:Price>
         </ns1:Item>
         
         <ns1:TotalPrice>100</ns1:TotalPrice>
