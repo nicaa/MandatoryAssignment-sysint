@@ -3,6 +3,7 @@ package xpath;
 
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JTextArea;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,13 +25,14 @@ import org.xml.sax.SAXException;
  */
 public class XpathSearch {
     
-    public XpathSearch () throws SAXException, IOException, XPathExpressionException, ParserConfigurationException{
+    public XpathSearch (JTextArea textArea, String Querry) throws SAXException, IOException, XPathExpressionException, ParserConfigurationException{
        
             File myxmlfile = new File("productOrder.xml");
+            textArea.setText("");
             // Path expressions
             //String str1 = "//Employee[name='Jarl']/role/text()";
             //String str2 = "count(//Employee[role='Manager'])";
-            String str1 = "ns1:ShippingInformation/*";
+            String str1 = "//ShippingInformation[Country='"+Querry+"']/*/text()";
            // String str2 = "";
             // standard for reading an XML file
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -49,7 +51,11 @@ public class XpathSearch {
             for (int i=0; i<results.getLength(); i++)
             {
                 System.out.println(results.item(i).getNodeValue());
+                textArea.append(results.item(i).getNodeValue() + "\n");
             }   
+        if (results.getLength() == 0) {
+            textArea.setText("Not found Search for another please");
+        }
             
             // new XPath expression to get the number of Managers
             //  expr2 = (XPathExpression) xpath.compile(str2);

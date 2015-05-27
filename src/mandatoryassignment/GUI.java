@@ -153,7 +153,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void search_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btnActionPerformed
         try {
-            XpathSearch search = new XpathSearch();
+            XpathSearch search = new XpathSearch(textArea, jTextField2.getText() );
         } catch (SAXException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
