@@ -47,7 +47,7 @@ public class DOMXMLValidator {
         catch (Exception e) 
         {
             e.printStackTrace();
-            return "Validation failed";
+            return "Validation failed \n " + e.getMessage();
         }
         
         return "Succesfully validated xml file against its schema";
