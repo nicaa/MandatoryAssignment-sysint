@@ -20,6 +20,8 @@ public class ElementTest {
         XMLHandler handler = new XMLHandler();
         //handler.addNewOrderItem("Pear", "25");
         //handler.removeOrderItem("Apple");
-        handler.updateOrderItem("Banana", "125");
+        //handler.updateOrderItem("Banana", "125");
+        //handler.addNewXMLTag("ParentTag", "ChildTag", "ChildTagValue", "src/XML/productOrder.xml");
+        handler.removeXMLTag("ns1:Order", "src/XML/productOrder.xml");
     }
 }

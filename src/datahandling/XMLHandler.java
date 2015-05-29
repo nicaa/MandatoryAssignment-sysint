@@ -34,8 +34,8 @@ import org.xml.sax.SAXException;
  */
 public class XMLHandler {
     
-    public void addNewOrderItem(String productName, String price) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, TransformerException {
-        File xmlFile = new File("src/XML/productOrder.xml");
+    public void addNewOrderItem(String productName, String price, String xmlFilePath) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, TransformerException {
+        File xmlFile = new File(xmlFilePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(xmlFile);
@@ -61,6 +61,28 @@ public class XMLHandler {
         transformer.transform(source, result);
     }
     
+    public void addNewXMLTag(String XMLTagName, String XMLChildTagName, String childElementValue, String xmlFilePath) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, TransformerException {
+        File xmlFile = new File(xmlFilePath);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(xmlFilePath);
+        Element root = document.getDocumentElement();
+        Node orderNode = root.getElementsByTagName("Order").item(0);
+        Element parentNode = document.createElement(XMLTagName);
+        Element childNode = document.createElement(XMLChildTagName);
+        childNode.appendChild(document.createTextNode(childElementValue));
+        parentNode.appendChild(childNode);
+        
+        root.appendChild(parentNode);
+                
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(document);
+        File outputFile = new File("src/XML/productOrderOutput.xml");
+        StreamResult result = new StreamResult(outputFile);
+        transformer.transform(source, result);
+    }
+    
     public void removeOrderItem(String productName) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException, TransformerConfigurationException, TransformerException {
         File xmlFile = new File("src/XML/productOrder.xml");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -75,6 +97,37 @@ public class XMLHandler {
         
         Node removalNode = (Node) expression.evaluate(document, XPathConstants.NODE);
         removalNode.getParentNode().removeChild(removalNode);
+        
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(document);
+        File outputFile = new File("src/XML/productOrderOutput.xml");
+        StreamResult result = new StreamResult(outputFile);
+        transformer.transform(source, result);
+    }
+    
+    public void removeXMLTag(String tagName, String xmlFilePath) throws ParserConfigurationException, XPathExpressionException, TransformerConfigurationException, TransformerException, SAXException, IOException {
+        //File xmlFile = new File(xmlFilePath);
+        File xmlFile = new File("src/XML/productOrder.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(xmlFile);
+        Element root = document.getDocumentElement();
+        
+        XPathFactory xpf = XPathFactory.newInstance();
+        XPath xpath = xpf.newXPath();
+        XPathExpression expression;
+        expression = xpath.compile("//"+tagName);
+        
+        //Node removalNode = (Node) expression.evaluate(document, XPathConstants.NODE);
+        NodeList removalNodes = document.getElementsByTagName(tagName);
+        //removalNode.getParentNode().removeChild(removalNode);
+        
+        for(int i = 0; i <= removalNodes.getLength(); i++) {
+            Node removalNode = removalNodes.item(i);
+            removalNodes.item(i).getParentNode().removeChild(removalNode);
+        }
+       // removalNode.getParentNode().
         
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();

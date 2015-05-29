@@ -11,18 +11,6 @@ and open the template in the editor.
         <ns1:FirstName>Rasmus</ns1:FirstName>
         <ns1:LastName>Hojte</ns1:LastName>
     </ns1:ShippingInformation>
-    <ns1:Order>
-        <ns1:Item>
-            <ns1:Product>Apple</ns1:Product>
-            <ns1:Price>50</ns1:Price>
-        </ns1:Item>
-        <ns1:Item><ns1:Product>Banana</ns1:Product><ns1:Price>125</ns1:Price></ns1:Item>
-        <ns1:Item>
-            <ns1:Product>Orange</ns1:Product>
-            <ns1:Price>75</ns1:Price>
-        </ns1:Item>
-        
-        <ns1:TotalPrice>100</ns1:TotalPrice>
-    </ns1:Order>
+    
 
 </ns1:PurchaseOrder>

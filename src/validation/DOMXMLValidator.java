@@ -21,9 +21,9 @@ import org.w3c.dom.Document;
  */
 public class DOMXMLValidator {
     
-    public String validateXmlFile(String path) {
-        File myxmlfile = new File(path);
-        File myschemafile = new File("src/XML/ProductOrder.xsd");
+    public String validateXmlFile(String xmlPath, String xsdPath) {
+        File myxmlfile = new File(xmlPath);
+        File myschemafile = new File(xsdPath);
         
         Schema schema = null;
         
